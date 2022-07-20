@@ -4,11 +4,16 @@
 
 #[cfg(test)] mod tests;
 
+#[get("/hello/<name>")]
+fn hello(name: String) -> String {
+    format!("Hello {}!", name)
+}
+
 #[get("/")]
-fn hello() -> &'static str {
-    "Hello, world!"
+fn home() -> &'static str {
+    "Hello world!"
 }
 
 fn main() {
-    rocket::ignite().mount("/", routes![hello]).launch();
+    rocket::ignite().mount("/", routes![home, hello]).launch();
 }
